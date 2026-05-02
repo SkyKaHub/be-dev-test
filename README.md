@@ -1,45 +1,113 @@
 # Backend Developer Test
 
-A simple test for Backend developers
+This project is a solution for the **Backend Developer Test**.\
+It demonstrates a simple full-stack implementation using **Laravel**,
+**Vue**, and **MySQL**.
 
-## Instructions
+The application imports customer data from a CSV file into a database
+and exposes it through a paginated API.\
+A Vue frontend asynchronously loads and displays the data in a list of
+customer cards.
 
-1. Clone this repo.
-2. Use one or more of these programming/scripting languages:
-   1. TypeScript
-   2. JavaScript
-   4. PHP
-   5. Python
-   6. Ruby
-   7. Bash
-4. Write a script to Import the CSV file located in `data/customers.csv` into a database.
-5. Create a basic API that presents the data from the database in a way that is suitable for a mobile or web based client.
-   1. Implement pagination
-   2. Handle user input appropriately
-7. Create a basic web app that asynchronously loads the JSON data into a list view of some description.
-8. Email tech-tests@catchdesign.co.nz with:
-    1. A link to your repo OR
-    2. A zip file of your project including git config/metadata
+------------------------------------------------------------------------
 
-### Guidelines
+# Tech Stack
 
-1. Your repo needs to include at minimum anything required to get the app working.  Detailed instructions should be provided in the `README.md` file to setup and run the app.
-2. If a structured schema migration tool is not used then a setup script must be supplied to create any data tables etc
-3. Aim to spend 1-4 hours on it
+### Backend
 
-### Assessment Guidelines
+-   PHP
+-   Laravel
+-   MySQL
 
-* Comprehension
-* Setup/running the code should be smooth and simple
-* Selection of frameworks
-* Code should be:
-    * clean
-    * well documented / annotated / typed
-    * simple
-    * easy to maintain
-* Good package management and git practices
-* Documentation and architecture
-* Security / Performance / SEO / Accessibility considerations
-* Tests
-* General code quality, organisation and best practices
+### Frontend
 
+-   Vue 3
+-   Pinia (state management)
+-   TailwindCSS
+-   Vite
+
+### Infrastructure
+
+-   Docker
+-   Nginx
+-   PHP-FPM
+
+------------------------------------------------------------------------
+
+# Project Structure
+
+    app
+     ├─ Console
+     │   └─ Commands
+     │       └─ parseCustomerData.php
+     ├─ Http
+     │   └─ Controllers
+     │       └─ Api
+     │           └─ CustomerController.php
+
+    resources
+     ├─ js
+     │   ├─ components
+     │   │   └─ CustomerCard.vue
+     │   ├─ stores
+     │   │   └─ customerStore.js
+     │   └─ app.js
+
+    data
+     └─ customers.csv
+
+    routes
+     └─ api.php
+
+------------------------------------------------------------------------
+
+# Installation
+
+Clone the repository:
+
+    git clone <repository-url>
+    cd be-dev-test
+
+------------------------------------------------------------------------
+
+# Start with Docker (recommended)
+
+Build and start containers:
+
+    docker compose up -d --build
+
+Install dependencies:
+
+    docker compose exec app composer install
+    docker compose exec app php artisan key:generate
+
+Run database migrations:
+
+    docker compose exec app php artisan migrate
+
+Import the CSV file:
+
+    docker compose exec app php artisan app:parse-customer-data
+
+Install frontend dependencies:
+
+    npm install
+    npm run dev
+
+------------------------------------------------------------------------
+
+# Open the Application
+
+Frontend:
+
+    http://localhost:8080
+
+API endpoint:
+
+    http://localhost:8080/api/customers
+
+Example:
+
+    http://localhost:8080/api/customers?page=1
+
+------------------------------------------------------------------------
