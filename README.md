@@ -79,6 +79,7 @@ Build and start containers:
 Install dependencies:
 
     docker compose exec app composer install
+    cp .env.example .env
     docker compose exec app php artisan key:generate
 
 Run database migrations:
